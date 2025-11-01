@@ -1,0 +1,69 @@
+Project gimnasio {
+  database_type: 'PostgreSQL'
+  Note: 'Base de datos optimizada para la gestión integral de un gimnasio.'
+}
+
+// 1. Módulo de Usuarios y Roles
+Table personas{
+  id int [pk, increment]
+  id_usuario int 
+  nombre varchar
+  apellidos varchar
+  telefono varchar(15)
+  fecha_registro date
+}
+Table usuarios {
+  id int [pk, increment]
+  email varchar [unique]
+  password varchar // debe guardarse cifrado (hash)
+  foto text
+  id_rol int
+}
+
+Table roles {
+  id int [pk, increment]
+  nombre varchar [unique] // Ej: 'administrador', 'coach', 'cliente', 'recepcion'
+  descripcion varchar
+}
+
+// 2. Módulo de Membresías
+Table membresias {
+  id int [pk, increment]
+  nombre varchar // Ej: 'Plan 1 Mes', 'Plan Grupal 2 Personas'
+  duracion_meses int
+  precio decimal(8, 2)
+  es_grupal boolean [default: false]
+  num_miembros varchar [note:"Registra de manera textual el numero de miembros permitidos"]
+}
+
+Table membresias_clientes {
+  id int [pk, increment]
+  id_membresia int
+  id_persona int
+  id_estado_pago int
+  fecha_inicio date
+  fecha_fin date // debe calcularse según duración
+  precio_pagado decimal(8, 2)
+  estado_membresia char [note: "A: Activo, V: Vencida ,P: Por vencer"]
+}
+
+// 3. Módulo de Estados
+Table estados_pago {
+  id int [pk, increment]
+  nombre varchar [unique] // Ej: 'pagado', 'pendiente', 'vencido'
+}
+
+Table tikets{
+  id int [pk, increment]
+  id_membresia int
+  fecha_tiket date 
+}
+
+// Relaciones
+Ref: personas.id_usuario - usuarios.id
+Ref: membresias_clientes.id > tikets.id_membresia
+Ref: usuarios.id_rol > roles.id
+Ref: membresias_clientes.id_persona > personas.id
+Ref: membresias_clientes.id_membresia > membresias.id
+Ref: membresias_clientes.id_estado_pago > estados_pago.id
+
