@@ -1,69 +1,85 @@
 Project gimnasio {
   database_type: 'PostgreSQL'
-  Note: 'Base de datos optimizada para la gestión integral de un gimnasio.'
+  Note: 'Esquema corregido y optimizado para la gestión de membresías.'
 }
 
-// 1. Módulo de Usuarios y Roles
-Table personas{
+//Tabla Usarios que aceden al sistema
+Table users {
   id int [pk, increment]
-  id_usuario int 
-  nombre varchar
-  apellidos varchar
-  telefono varchar(15)
-  fecha_registro date
-}
-Table usuarios {
-  id int [pk, increment]
-  email varchar [unique]
-  password varchar // debe guardarse cifrado (hash)
-  foto text
-  id_rol int
+  email varchar [unique, note:"Correo del usuario"]
+  password varchar [note:"Contraseña del usuario"]
+  photo text [note:"Foto del usuario"]
+  role_id int
 }
 
+//Tabla de Roles tiene el usario ante el sistema
 Table roles {
   id int [pk, increment]
-  nombre varchar [unique] // Ej: 'administrador', 'coach', 'cliente', 'recepcion'
-  descripcion varchar
+  name varchar [unique, note:"Nombre del rol que tendra un usario"] 
+  description varchar [note:"Descripción del rol del usuario"]
 }
 
-// 2. Módulo de Membresías
-Table membresias {
+//Tabla de Personas registradatas en el sistema Usuario y Clientes
+Table people{
   id int [pk, increment]
-  nombre varchar // Ej: 'Plan 1 Mes', 'Plan Grupal 2 Personas'
-  duracion_meses int
-  precio decimal(8, 2)
-  es_grupal boolean [default: false]
-  num_miembros varchar [note:"Registra de manera textual el numero de miembros permitidos"]
+  user_id int [null] 
+  name varchar [note:"Nombre completo del usario o cliente"]
+  phone varchar(15) [note:"Telefono del usario o cliente"]
+  registration_date date [note:"Fecha en la que se registro al usario o cliente"]
+  gender char [note:"F: Femenino, M: Masculino, O: Otro"]
 }
 
-Table membresias_clientes {
+//Tabla de Membresias ofertadas en el gimnasio
+Table memberships {
   id int [pk, increment]
-  id_membresia int
-  id_persona int
-  id_estado_pago int
-  fecha_inicio date
-  fecha_fin date // debe calcularse según duración
-  precio_pagado decimal(8, 2)
-  estado_membresia char [note: "A: Activo, V: Vencida ,P: Por vencer"]
+  name varchar [note:"Nombre que se le dio a la membresia"]
+  duration_months int [note:"Cantidad de meses que se oferta en la membresia"]
+  price decimal(8, 2) [note:"El precio de la membresia"]
+  is_group boolean [default: false, note:"Especifica si la membreisa es en grupo o personal"]
+  description varchar [note:"Alamcena informacion adicional a la membresia"] 
 }
 
-// 3. Módulo de Estados
-Table estados_pago {
+//Tabla Estado Membresia para controlar cual es el estado de la membrecia
+Table membership_status {
   id int [pk, increment]
-  nombre varchar [unique] // Ej: 'pagado', 'pendiente', 'vencido'
+  name varchar [note: "Ej: Activo, Vencida, Por Vencer"] 
 }
 
-Table tikets{
+//Tabla Membresias Clientes datos de las membresias de los clientes
+Table client_memberships {
   id int [pk, increment]
-  id_membresia int
-  fecha_tiket date 
+  membership_id int
+  client_id int
+  payment_status_id int
+  start_date date [note: "Fecha en la que inica la membresia"]
+  end_date date [note: "Fecha en la que terminara la membresia"]
+  total_price decimal(8, 2) [note:"Precio total que el cliente debe pagar"]
+  pending_balance decimal(8, 2) [default: null,note:"Saldo que debe el Cliente"]
+  advance_payment decimal(8, 2) [default: null,note:"Anticipo que puede dejar el cliente"]
+  membership_status_id int 
+  group_code varchar [note: "Clave para vincular miembros de un mismo plan grupal."]
 }
 
-// Relaciones
-Ref: personas.id_usuario - usuarios.id
-Ref: membresias_clientes.id > tikets.id_membresia
-Ref: usuarios.id_rol > roles.id
-Ref: membresias_clientes.id_persona > personas.id
-Ref: membresias_clientes.id_membresia > membresias.id
-Ref: membresias_clientes.id_estado_pago > estados_pago.id
+//Tabla Estado Pago, almacena informacion de estado de la membresia
+Table payment_statuses {
+  id int [pk, increment]
+  name varchar [unique, note:"Cancelado, Pendiente"]
+}
+
+//Tabla Tikets, almacena informacion de la asistencia del cliente al gimasio relacionada a la mambresia
+//EL tiket se imprime cada ves que el cliente accede a los anvientes, sirve como medida de control y asitencia
+Table tickets{
+  id int [pk, increment]
+  client_membership_id int 
+  ticket_datetime datetime [note:"Fecha y hora del tiket"]
+}
+
+// Relaciones (Relationships)
+Ref: people.user_id > users.id // Relación 1:1
+Ref: users.role_id > roles.id
+Ref: client_memberships.client_id > people.id
+Ref: client_memberships.membership_id > memberships.id
+Ref: client_memberships.membership_status_id > membership_status.id
+Ref: client_memberships.payment_status_id > payment_statuses.id
+Ref: tickets.client_membership_id > client_memberships.id // Relación de ticket corregida
 
