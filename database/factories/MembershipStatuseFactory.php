@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Membership_Satu>
  */
-class MembershipSatuFactory extends Factory
+class MembershipStatuseFactory extends Factory
 {
     /**
      * Define the model's default state.

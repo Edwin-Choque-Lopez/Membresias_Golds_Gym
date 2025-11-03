@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Gold is Gyn',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Gold&#39s</b>Gym',
+    'logo_img' => 'vendor/adminlte/dist/img/GoldsGymLogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -113,11 +113,11 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/GoldsGymLogo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 200,
+            'height' => 200,
         ],
     ],
 
@@ -300,20 +300,78 @@ return [
 
     'menu' => [
         // Navbar items:
+        /* Buscador de la cabecera
         [
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
-        ],
+        ],*/
+        //Pantalla completa
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         // Sidebar items:
+        /* Buscador del menu lateral
         [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
+        ],*/
+
+        // Estructura del menu lateral
+        [
+            'text'=>'Usuarios',
+            'icon'=>'fas fa-users',
+            'classes'=>'bg-blue text-white',
+            'submenu'=>[
+                [
+                    'text'=>'Usuarios',
+                    'url'=>'#',
+                    'icon'=>'fas fa-id-card-alt',
+                    'submenu'=>[
+                        [
+                            'text'=>'Lista de Usuarios',
+                            'url'=>'/users',
+                            'icon'=>'fas fa-list-ul',
+                        ],
+                        [
+                            'text'=>'Agregar Usuario',
+                            'url'=>'#',
+                            'icon'=>'fas fa-user-plus',
+                        ],
+                    ],
+                ],
+                [
+                    'text'=>'Clientes',
+                    'url'=>'#',
+                    'icon'=>'fas fa-dumbbell',
+                    'submenu'=>[
+                        [
+                            'text'=>'Lista de Clientes',
+                            'url'=>'#',
+                            'icon'=>'fas fa-list-ul',
+                        ],
+                        [
+                            'text'=>'Agregar Cliente',
+                            'url'=>'#',
+                            'icon'=>'fas fa-user-plus',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        /*Ejemplos
+        [
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'can'  => 'manage-blog',
+        ],
+        ['header' => 'main_navigation'],
+        [
+            'text' => 'Dashboard',
+            'url'  => 'home',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
         [
             'text' => 'blog',
@@ -391,7 +449,7 @@ return [
             'text' => 'information',
             'icon_color' => 'cyan',
             'url' => '#',
-        ],
+        ],*/
     ],
 
     /*
