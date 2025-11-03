@@ -4,13 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +24,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'photo',
+        'role_id',
     ];
+    public function role():BelongsTo
+    {
+        return $this->belongsTo(Role::class,'role_id','id');
+    }
+    public function people(): HasOne
+    {
+        return $this->hasOne(People::class,'user_id','id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

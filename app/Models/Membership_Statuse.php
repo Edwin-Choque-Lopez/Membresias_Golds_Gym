@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Payment_Statuse extends Model
+class Membership_Statuse extends Model
 {
-    /** @use HasFactory<\Database\Factories\PaymentStatuseFactory> */
+    /** @use HasFactory<\Database\Factories\MembershipSatuFactory> */
     use HasFactory,SoftDeletes;
-    protected $table = 'payment_statuses';
+    protected $table = 'membership_statuses';
     protected $fillable = [
         'name',
     ];
-    public function ClientMemberships():HasMany
+
+    public function ClientsMemberships(): HasMany
     {
-        return $this->hasMany(Client_Membership::class,'payment_status_id','id');
+        return $this->hasMany(Client_Membership::class,'membership_status_id','id');
     }
 }

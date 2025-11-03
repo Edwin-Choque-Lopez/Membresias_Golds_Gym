@@ -20,7 +20,7 @@ Table roles {
 }
 
 //Tabla de Personas registradatas en el sistema Usuario y Clientes
-Table people{
+Table peoples{
   id int [pk, increment]
   user_id int [null] 
   name varchar [note:"Nombre completo del usario o cliente"]
@@ -40,7 +40,7 @@ Table memberships {
 }
 
 //Tabla Estado Membresia para controlar cual es el estado de la membrecia
-Table membership_status {
+Table membership_statuses {
   id int [pk, increment]
   name varchar [note: "Ej: Activo, Vencida, Por Vencer"] 
 }
@@ -75,11 +75,11 @@ Table tickets{
 }
 
 // Relaciones (Relationships)
-Ref: people.user_id > users.id // Relación 1:1
+Ref: peoples.user_id > users.id // Relación 1:1
 Ref: users.role_id > roles.id
-Ref: client_memberships.client_id > people.id
+Ref: client_memberships.client_id > peoples.id
 Ref: client_memberships.membership_id > memberships.id
-Ref: client_memberships.membership_status_id > membership_status.id
+Ref: client_memberships.membership_status_id > membership_statuses.id
 Ref: client_memberships.payment_status_id > payment_statuses.id
 Ref: tickets.client_membership_id > client_memberships.id // Relación de ticket corregida
 

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client__memberships', function (Blueprint $table) {
+        Schema::create('client_memberships', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained('peoples');
             $table->foreignId('membership_id')->constrained('memberships');
-            $table->foreignId('payment_status_id')->constrained('payment__statuses');
-            $table->foreignId('membership_status_id')->constrained('membership__satus');
+            $table->foreignId('payment_status_id')->constrained('payment_statuses');
+            $table->foreignId('membership_status_id')->constrained('membership_statuses');
             $table->date('start_date');
             $table->date('end_date');
             $table->decimal('total_price', 8, 2);
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client__memberships');
+        Schema::dropIfExists('client_memberships');
     }
 };
