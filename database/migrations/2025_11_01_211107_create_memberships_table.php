@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100);
+            $table->integer('duration_months');
+            $table->decimal('price', 8, 2);
+            $table->boolean('is_group')->default(false);
+            $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

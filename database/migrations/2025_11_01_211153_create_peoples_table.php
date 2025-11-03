@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('people', function (Blueprint $table) {
+        Schema::create('peoples', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->unique()->nullable()->constrained('users');
+            $table->string('name', 100);
+            $table->string('phone',8)->nullable();
+            $table->timestamp('registration_date')->useCurrent();
+            $table->char('gender',1)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

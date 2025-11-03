@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_membership_id')->constrained('client__memberships');
+            $table->timestamp('ticket_datetime')->useCurrent();
             $table->timestamps();
         });
     }

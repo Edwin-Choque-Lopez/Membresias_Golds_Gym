@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('payment__statuses', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
