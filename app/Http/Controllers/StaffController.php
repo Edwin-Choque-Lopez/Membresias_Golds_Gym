@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\People;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class StaffController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $people_with_user = People::query()
@@ -23,26 +20,17 @@ class UserController extends Controller
             ->get();
 
         // 2. Formatear la salida para mostrar los datos relevantes
-        /*$result = $people_with_user->map(function ($person) {
+        $result = $people_with_user->map(function ($person) {
             return [
                 'person_id' => $person->id,
                 'nombre_completo' => $person->name,
-                'telefono' => $person->phone,
                 'fecha_registro' => $person->registration_date,
-                
-                // Datos del Usuario
-                'usuario' => [
-                    'user_id' => $person->user->id ?? null,
-                    'email' => $person->user->email ?? 'N/A',
-                    'rol' => $person->user->role->name ?? 'Sin Rol Asignado', // Nombre del Rol
-                    'rol_descripcion' => $person->user->role->description ?? 'N/A',
-                ],
+                'email' => $person->user->email ?? 'N/A',
+                'rol' => $person->user->role->name ?? 'Sin Rol Asignado',
             ];
-        });*/
+        });
 
-        //return response()->json($people_with_user);
-
-        return view('users.index');
+        return view('users.staff_users.index',compact('result'));
     }
 
     /**

@@ -326,17 +326,17 @@ return [
             'classes'=>'bg-blue text-white',
             'submenu'=>[
                 [
-                    'text'=>'Usuarios',
+                    'text'=>'Personal',
                     'url'=>'#',
                     'icon'=>'fas fa-id-card-alt',
                     'submenu'=>[
                         [
-                            'text'=>'Lista de Usuarios',
-                            'url'=>'/users',
+                            'text'=>'Lista del Personal',
+                            'url'=>'/staff',
                             'icon'=>'fas fa-list-ul',
                         ],
                         [
-                            'text'=>'Agregar Usuario',
+                            'text'=>'Registrar Personal',
                             'url'=>'#',
                             'icon'=>'fas fa-user-plus',
                         ],
