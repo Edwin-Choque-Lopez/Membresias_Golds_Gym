@@ -1,12 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuarios')
+@section('title', 'Personal')
 
 @section('content_header')
     <nav aria-label="breadcrumb" style="font-size: 15pt">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{url('/home')}}">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{{url('/users')}}">Usuarios</a></li>
+            <li class="breadcrumb-item"><a href="{{url('/staff')}}">Personal</a></li>
             <li class="breadcrumb-item active" aria-current="page">Lista del Personal</li>
         </ol>
     </nav>
@@ -20,7 +20,7 @@
             <div class="card-header">
                 <h1 class="card-title"><b>Personal Registrado</b></h1>
                 <div class="card-tools">
-                  <a class="btn btn-primary" href="" role="button">Registrar Nuevo Personal</a>
+                  <a class="btn btn-primary" href="{{url('/staff/create')}}" role="button">Registrar Nuevo Personal</a>
                 </div>
 
             </div>

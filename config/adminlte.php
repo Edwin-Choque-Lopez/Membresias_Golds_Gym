@@ -337,7 +337,7 @@ return [
                         ],
                         [
                             'text'=>'Registrar Personal',
-                            'url'=>'#',
+                            'url'=>'/staff/create',
                             'icon'=>'fas fa-user-plus',
                         ],
                     ],

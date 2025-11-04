@@ -22,6 +22,7 @@ Table roles {
 //Tabla de Personas registradatas en el sistema Usuario y Clientes
 Table peoples{
   id int [pk, increment]
+  ci varchar(10) [unique, note:"Carnet de identidad del usario o cliente"]
   user_id int [null] 
   name varchar [note:"Nombre completo del usario o cliente"]
   phone varchar(15) [note:"Telefono del usario o cliente"]
