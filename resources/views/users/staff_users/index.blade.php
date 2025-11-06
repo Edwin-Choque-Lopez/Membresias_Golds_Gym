@@ -46,8 +46,8 @@
                             <td>{{ $user['email'] }}</td>
                             <td>{{$user['fecha_registro']}}</td>
                             <td style="display: flex; justify-content: center; align-items: center; gap: 8px; height: 100%;">
-                                <a href="#" class="btn btn-primary"><i class="far fa-eye"></i></a>
-                                <a href="#" class="btn btn-warning"><i class="far fa-edit"></i></a>
+                                <a href="{{route('staff.show',$user['person_id'])}}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                                <a href="{{route('staff.edit',$user['person_id'])}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i></a>
                                 <form action="#" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
