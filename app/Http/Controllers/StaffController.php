@@ -61,7 +61,7 @@ class StaffController extends Controller
             'telefono'=>'required|string|regex:/^[0-9 +()-]+$/',
             'genero'=>'required',
         ]);
-
+        
         $staff = request()->all();
         $ci=$staff['ci'];
         $photo = $request->file('fotografia');
@@ -74,71 +74,22 @@ class StaffController extends Controller
         $url=Storage::url($profile_route);
         //$url=storage_path('app/'.$profile_route);
         $staff['profile_url'] = $url;
-        return response()->json($staff);
-        
 
-
-        //return redirect()->route('staff.index');
-        /* 
-                $request -> validate([
-            'ci'=>'required|string|min:7|max:10|regex:/^[0-9]+$/',
-            'nombre'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/',
-            'apellidos'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/',
-            'especialidad'=>'required|string|regex:/^[a-zA-Zñáéíóú .]+$/',
-            'email'=>'required|email',
-            'password'=>'required|string|confirmed|min:8',
-            'foto'=>'required',
+        $staff_user=User::create([
+            'name'=>$staff['nombre'],
+            'email'=>$staff['correo'],
+            'password'=>bcrypt($staff['contraseña']),
+            'role_id'=>$staff['rol'],
+            'photo'=>$staff['profile_url'],
         ]);
-       
-        $miembro = request()->all();
-        $email=$miembro['email'];
-        $name_full=$miembro['nombre'].' '.$miembro['apellidos'];
-        $imagen = $request->file('foto');
-
-        $user=User::create([
-            'name'=>$name_full,
-            'email'=>$request['email'],
-            'password'=>Hash::make($request['password']),
+        $staff_user->people()->create([
+            'ci'=>$staff['ci'],
+            'name'=>$staff['nombre'],
+            'phone'=>$staff['telefono'],
+            'gender'=>$staff['genero'],
         ]);
 
-        $usuario = User::where('email', $email)->first();
-     
-        $docente=Docente::create([
-            'ci'=>$miembro['ci'],           
-            'nombre'=>$miembro['nombre'],          
-            'apellidos'=>$miembro['apellidos'],       
-            'especialidad'=>$miembro['especialidad'],    
-            'email'=>$miembro['email'],          
-            'rol'=>$miembro['rol'],            
-            'genero'=>$miembro['genero'],          
-            'foto'=>null, 
-            'departamento_id'=>$miembro['departamento'],           
-            'user_id'=>$usuario['id']
-        ]);
-
-        $iduse= Docente::where('email', $email)->value('id');
-        //return response()->json($iduse);
-        //$nombreBase = \Illuminate\Support\Str::slug($iduse ?? 'default_user');
-        $extension = $imagen->getClientOriginalExtension();
-        $nombreArchivo1 = $iduse . '1.' . $extension; 
-        $rutaImagen1 = $imagen->storeAs('public/fotos_perfil', $nombreArchivo1);
-          
-        $urlPublica1 = Storage::url($rutaImagen1);
-        $miembro['url_F1'] = $urlPublica1; 
-
-        $nombreArchivo2 = $iduse . '2.' . $extension; 
-        $rutaImagen2 = $imagen->storeAs('public/fotos_perfil', $nombreArchivo2);
-        
-        $urlPublica2 = Storage::url($rutaImagen2);
-        $miembro['url_F2'] = $urlPublica2; 
-
-        $docenteupdate = Docente::where('id',$iduse)->update([
-            'foto'=>$miembro['url_F2'],            
-        ]);
-
-        return redirect()->route('miembros.index')->with('success', 'Usuario registrado correctamente');
-        */
-        //return response()->json($request);
+        return redirect()->route('staff.index')->with('mensaje', 'Personal registrado con exito')->with('icono', 'success' );    
     }
 
     /**

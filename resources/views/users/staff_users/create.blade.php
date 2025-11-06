@@ -91,7 +91,7 @@
                                         <div class="form-group">
                                             <label for="password">Contraseña</label>
                                             <div style="display: flex; align-items: center; width: 100%;">
-                                                <input type="password" name="contraseña" id="password" value="{{old('password')}}" class="form-control" style="flex-grow: 1;">
+                                                <input type="password" name="contraseña" id="password" class="form-control" style="flex-grow: 1;">
                                                 <button type="button" onclick="Password()" style="background: none; border: none; cursor: pointer;">
                                                     <i id="icon_password" class="fas fa-eye-slash"></i>
                                                 </button>
@@ -105,12 +105,12 @@
                                         <div class="form-group">
                                             <label for="password">Contraseña</label>
                                             <div style="display: flex; align-items: center; width: 100%;">
-                                                <input type="password" name="contraseña_confirmation" value="{{old('password')}}" id="password_confirmation" class="form-control" style="flex-grow: 1;">
+                                                <input type="password" name="contraseña_confirmation" id="password_confirmation" class="form-control" style="flex-grow: 1;">
                                                 <button type="button" onclick="Password_Confirmation()" style="background: none; border: none; cursor: pointer;">
-                                                    <i id="icon_password" class="fas fa-eye-slash"></i>
+                                                    <i id="icon_confirmation" class="fas fa-eye-slash"></i>
                                                 </button>
                                             </div>
-                                            @error('confirmacion_contraseña')
+                                            @error('contraseña_confirmation')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror
                                         </div>
@@ -170,12 +170,12 @@
             var icon_confirmation = document.getElementById("icon_confirmation");
             if (input_confirmation.type === "password") {
                 input_confirmation.type = "text";
-                icon_confirmation.classList.remove("fa-eye");
-                icon_confirmation.classList.add("fa-eye-slash");
-            } else {
-                input_confirmation.type = "password";
                 icon_confirmation.classList.remove("fa-eye-slash");
                 icon_confirmation.classList.add("fa-eye");
+            } else {
+                input_confirmation.type = "password";
+                icon_confirmation.classList.remove("fa-eye");
+                icon_confirmation.classList.add("fa-eye-slash");
             }
         }
         function archivo(evt){

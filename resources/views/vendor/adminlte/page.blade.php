@@ -55,4 +55,16 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+    
+    @if(($mensaje=Session::get('mensaje'))&&($icono=Session::get('icono')))
+        <script>
+            Swal.fire({
+            icon: "{{$icono}}",
+            title: "{{ $mensaje }}",
+            showConfirmButton: false,
+            timer: 4500
+        });
+    </script>
+    @endif
+
 @stop

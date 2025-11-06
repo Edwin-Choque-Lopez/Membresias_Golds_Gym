@@ -15,6 +15,7 @@ class People extends Model
 
     protected $table = 'peoples';
     protected $fillable = [
+        'ci',
         'user_id',
         'name',
         'phone',
