@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\People;
 use App\Models\Role;
+use App\Models\User;
+//use Illuminate\Container\Attributes\Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -49,16 +52,33 @@ class StaffController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'role'=>'required|exists:roles,id',
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required|string|confirmed|min:8',
-            'photo'=>'required|image|max:2048',
+            'rol'=>'required|exists:roles,id',
+            'correo'=>'required|email|unique:users,email',
+            'contraseña'=>'required|string|confirmed|min:8',
+            'fotografia'=>'required|image|max:2048',
             'ci'=>'required|string|min:7|max:10|regex:/^[0-9]+$/',
-            'name'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/',
-            'phone'=>'required|string|regex:/^[0-9 +()-]+$/',
-            'gander'=>'required',
+            'nombre'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/',
+            'telefono'=>'required|string|regex:/^[0-9 +()-]+$/',
+            'genero'=>'required',
         ]);
-        return redirect()->route('staff.index');
+
+        $staff = request()->all();
+        $ci=$staff['ci'];
+        $photo = $request->file('fotografia');
+
+        //$extension = $photo->getClientOriginalExtension();
+        $extension = $photo->guessExtension();
+        $profile_picture = $ci.'.'.$extension; 
+        //$profile_route = $photo->storeAs('public/profile_pictures', $profile_picture);
+        $profile_route = $photo->storeAs('profile_pictures', $profile_picture, 'public');
+        $url=Storage::url($profile_route);
+        //$url=storage_path('app/'.$profile_route);
+        $staff['profile_url'] = $url;
+        return response()->json($staff);
+        
+
+
+        //return redirect()->route('staff.index');
         /* 
                 $request -> validate([
             'ci'=>'required|string|min:7|max:10|regex:/^[0-9]+$/',

@@ -27,7 +27,7 @@
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav pull-right">
               <li><a href={{url('/login')}}>INICIAR SECIÓN</a></li>
-              <li><a href="{{url('/register')}}">REGISTRARSE</a></li>
+              
             </ul>
           </div>
         </nav>

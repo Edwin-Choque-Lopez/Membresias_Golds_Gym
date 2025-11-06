@@ -31,7 +31,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Rol</label>
-                                            <select name="role" class="form-control" id="">
+                                            <select name="rol" class="form-control" id="">
                                                 @foreach ($roles as $role)
                                                     <option value="{{$role->id}}">{{$role->name}}</option>
                                                 @endforeach
@@ -50,8 +50,8 @@
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="">Nombre Completo</label>
-                                            <input type="text" name="name" value="{{old('name')}}" class="form-control">
-                                            @error('name')
+                                            <input type="text" name="nombre" value="{{old('nombre')}}" class="form-control">
+                                            @error('nombre')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror
                                         </div>
@@ -59,7 +59,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Genero</label>
-                                            <select name="gander" class="form-control" id="">
+                                            <select name="genero" class="form-control" id="">
                                                     <option value="M">Masculino</option>
                                                     <option value="F">Femenino</option>
                                                     <option value="O">Otro</option>
@@ -69,8 +69,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Telefono</label>
-                                            <input type="text" name="phone" value="{{old('phone')}}" class="form-control">
-                                            @error('phone')
+                                            <input type="text" name="telefono" value="{{old('telefono')}}" class="form-control" >
+                                            @error('telefono')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror
                                         </div>
@@ -80,9 +80,9 @@
                                             <label for="">Correo</label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                                <input type="email" name="email" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                <input type="email" name="correo" value="{{old('correo')}}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                             </div>
-                                            @error('email')
+                                            @error('correo')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror
                                         </div>
@@ -91,12 +91,12 @@
                                         <div class="form-group">
                                             <label for="password">Contraseña</label>
                                             <div style="display: flex; align-items: center; width: 100%;">
-                                                <input type="password" name="password" id="password" value="{{old('password')}}" class="form-control" style="flex-grow: 1;">
+                                                <input type="password" name="contraseña" id="password" value="{{old('password')}}" class="form-control" style="flex-grow: 1;">
                                                 <button type="button" onclick="Password()" style="background: none; border: none; cursor: pointer;">
                                                     <i id="icon_password" class="fas fa-eye-slash"></i>
                                                 </button>
                                             </div>
-                                            @error('password')
+                                            @error('contraseña')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror
                                         </div>
@@ -105,12 +105,12 @@
                                         <div class="form-group">
                                             <label for="password">Contraseña</label>
                                             <div style="display: flex; align-items: center; width: 100%;">
-                                                <input type="password" name="password_confirmation" value="{{old('password')}}" id="password_confirmation" class="form-control" style="flex-grow: 1;">
+                                                <input type="password" name="contraseña_confirmation" value="{{old('password')}}" id="password_confirmation" class="form-control" style="flex-grow: 1;">
                                                 <button type="button" onclick="Password_Confirmation()" style="background: none; border: none; cursor: pointer;">
                                                     <i id="icon_password" class="fas fa-eye-slash"></i>
                                                 </button>
                                             </div>
-                                            @error('password_confirmation')
+                                            @error('confirmacion_contraseña')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror
                                         </div>
@@ -120,8 +120,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Fotografia</label>
-                                    <input type="file" name="photo" id="file" class="form-control">
-                                    @error('photo')
+                                    <input type="file" name="fotografia" id="file" class="form-control">
+                                    @error('fotografia')
                                             <small style="color: red;">* {{$message}}</small>
                                     @enderror  
                                     <center><output id="list"></output></center>                                                                    
