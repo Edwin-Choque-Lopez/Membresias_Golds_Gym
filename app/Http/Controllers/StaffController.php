@@ -206,6 +206,11 @@ class StaffController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $person = People::findOrFail($id);
+        $person->delete();
+        if ($person->user) {
+            $person->user->delete();
+        }
+        return redirect()->route('staff.index')->with('mensaje', 'Perosnal eliminado con exito')->with('icono', 'success' );
     }
 }

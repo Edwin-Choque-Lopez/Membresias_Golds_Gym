@@ -48,10 +48,12 @@
                             <td style="display: flex; justify-content: center; align-items: center; gap: 8px; height: 100%;">
                                 <a href="{{route('staff.show',$user['person_id'])}}" class="btn btn-primary"><i class="far fa-eye"></i></a>
                                 <a href="{{route('staff.edit',$user['person_id'])}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i></a>
-                                <form action="#" method="POST" style="display: inline;">
+                                <form action="{{ route('staff.destroy', $user['person_id']) }}" method="POST" style="display: inline;" id="form-delete-{{ $user['person_id'] }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" class="btn btn-danger btn-delete" data-id="{{ $user['person_id'] }}">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -129,6 +131,48 @@
                 { text: '<i class="fas fa-print"></i> IMPRIMIR', extend: 'print', className: 'btn btn-warning' }
             ]
         }).buttons().container().appendTo('#example1_wrapper .row:eq(0)');
+    });
+
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Detiene el envío inmediato
+
+            const id = this.getAttribute('data-id');
+            const form = document.getElementById('form-delete-' + id);
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "¿Estás seguro?",
+                text: "¡No podrás revertir esto!",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Si, eliminar!",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                        /*swalWithBootstrapButtons.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });*/
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelado",
+                        text: "Se ha cancelado la eliminación.",
+                        icon: "error"
+                    });
+                }   
+            });
+
+        });
     });
     </script>
 @stop
