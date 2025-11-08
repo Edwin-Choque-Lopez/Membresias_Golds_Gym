@@ -57,7 +57,7 @@ class StaffController extends Controller
             'correo'=>'required|email|unique:users,email',
             'contraseña'=>'required|string|confirmed|min:8',
             'fotografia'=>'required|image|max:2048',
-            'ci'=>'required|string|min:7|max:10|regex:/^[0-9]+$/',
+            'ci'=>'required|unique:peoples,ci|string|min:7|max:10|regex:/^[0-9]+$/',
             'nombre'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/',
             'telefono'=>'required|string|regex:/^[0-9 +()-]+$/',
             'genero'=>'required',
@@ -90,7 +90,7 @@ class StaffController extends Controller
             'gender'=>$staff['genero'],
         ]);
 
-        return redirect()->route('staff.index')->with('mensaje', 'Personal registrado con exito')->with('icono', 'success' );    
+        return redirect()->route('staff.index')->with('mensaje', 'Personal registrado con éxito')->with('icono', 'success' );    
     }
 
     /**
@@ -173,32 +173,49 @@ class StaffController extends Controller
         ]);
 
         $staff = request()->all();
-        $ci=$staff['ci'];
-        $photo = $request->file('fotografia');
+        $staff_user = People::find($id);
+        if($request->file('fotografia')){
+            $ci=$staff['ci'];
+            $photo = $request->file('fotografia');
 
-        $extension = $photo->guessExtension();
-        $profile_picture = $ci.'.'.$extension; 
-        $profile_route = $photo->storeAs('profile_pictures', $profile_picture, 'public');
-        $url=Storage::url($profile_route);
-        $staff['profile_url'] = $url;
+            $extension = $photo->guessExtension();
+            $profile_picture = $ci.'.'.$extension; 
+            $profile_route = $photo->storeAs('profile_pictures', $profile_picture, 'public');
+            $url=Storage::url($profile_route);
+            $staff['profile_url'] = $url;
 
-        $staff_user = People::find($id); // o ->first() si usas where()
+            $staff_user->update([
+                'ci' => $staff['ci'],
+                'name' => $staff['nombre'],
+                'phone' => $staff['telefono'],
+                'gender' => $staff['genero'],
+            ]);
 
-        $staff_user->update([
-            'ci' => $staff['ci'],
-            'name' => $staff['nombre'],
-            'phone' => $staff['telefono'],
-            'gender' => $staff['genero'],
-        ]);
+            $staff_user->user()->update([
+                'name' => $staff['nombre'],
+                'email' => $staff['correo'],
+                'role_id' => $staff['rol'],
+                'photo' => $staff['profile_url'],
+            ]);
 
-        $staff_user->user()->update([
-            'name' => $staff['nombre'],
-            'email' => $staff['correo'],
-            'role_id' => $staff['rol'],
-            'photo' => $staff['profile_url'],
-        ]);
+        }else{
+            $staff_user->update([
+                'ci' => $staff['ci'],
+                'name' => $staff['nombre'],
+                'phone' => $staff['telefono'],
+                'gender' => $staff['genero'],
+            ]);
 
-        return redirect()->route('staff.index')->with('mensaje', 'Personal actualizado con exito')->with('icono', 'success' );
+            $staff_user->user()->update([
+                'name' => $staff['nombre'],
+                'email' => $staff['correo'],
+                'role_id' => $staff['rol'],
+            ]);
+
+        }
+        
+
+        return redirect()->route('staff.index')->with('mensaje', 'Datos actualizados del personal')->with('icono', 'success' );
     }
 
     /**
@@ -211,6 +228,6 @@ class StaffController extends Controller
         if ($person->user) {
             $person->user->delete();
         }
-        return redirect()->route('staff.index')->with('mensaje', 'Perosnal eliminado con exito')->with('icono', 'success' );
+        return redirect()->route('staff.index')->with('mensaje', 'Personal eliminado con éxito')->with('icono', 'success' );
     }
 }

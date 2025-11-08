@@ -16,7 +16,7 @@
 @section('content')
     <div class="row d-flex justify-content-center align-items-center" >
         <div class="col-md-12">
-            <div class="card card-outline card-success">
+            <div class="card card-outline card-info">
                 <div class="card-header">
                     <h3 class="card-title">Rellene los Campos</h3>
                 <!-- /.card-tools -->
@@ -132,7 +132,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <a href="{{url('/staff')}}" class="btn btn-secondary">Cancelar</a>
-                                    <button type="submit" class="btn btn-primary">Registrar</button>
+                                    <button type="submit" class="btn btn-info">Registrar</button>
                                 </div>
                             </div>
                         </div>

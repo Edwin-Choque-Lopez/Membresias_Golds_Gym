@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Personal')
+@section('title', 'Clientes')
 
 @section('content_header')
     <nav aria-label="breadcrumb" style="font-size: 15pt">
@@ -16,7 +16,7 @@
 @section('content')
     <div class="row d-flex justify-content-center align-items-center" >
         <div class="col-sm-10 col-md-8 col-lg-6">
-            <div class="card card-outline card-success">
+            <div class="card card-outline card-info">
                 <div class="card-header">
                     <h3 class="card-title">Rellene los Campos</h3>
                 <!-- /.card-tools -->
@@ -30,17 +30,18 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Rol</label>
-                                            <select name="rol" class="form-control" id="">
-                                                
-                                            </select>
+                                            <label for="">C.I.</label>
+                                            <input type="text" name="ci" value="{{old('ci')}}" class="form-control">
+                                            @error('ci')
+                                                <small style="color: red;">* {{$message}}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">C.I.</label>
-                                            <input type="text" name="ci" value="{{old('ci')}}" class="form-control">
-                                            @error('ci')
+                                            <label for="">Telefono</label>
+                                            <input type="text" name="telefono" value="{{old('telefono')}}" class="form-control" >
+                                            @error('telefono')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror
                                         </div>
@@ -64,27 +65,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Telefono</label>
-                                            <input type="text" name="telefono" value="{{old('telefono')}}" class="form-control" >
-                                            @error('telefono')
-                                                <small style="color: red;">* {{$message}}</small>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Correo</label>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">@</span>
-                                                <input type="email" name="correo" value="{{old('correo')}}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                            </div>
-                                            @error('correo')
-                                                <small style="color: red;">* {{$message}}</small>
-                                            @enderror
-                                        </div>
-                                    </div>
                                 </div>   
                             </div>
                         </div> 
@@ -92,7 +72,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <a href="{{url('/clients')}}" class="btn btn-secondary">Cancelar</a>
-                                    <button type="submit" class="btn btn-primary">Registrar</button>
+                                    <button type="submit" class="btn btn-info">Registrar</button>
                                 </div>
                             </div>
                         </div>
