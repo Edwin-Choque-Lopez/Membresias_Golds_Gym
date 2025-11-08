@@ -14,7 +14,7 @@
 @stop
 
 @section('content')
-    <div class="row">
+    <div class="row d-flex justify-content-center align-items-center" >
         <div class="col-md-12">
             <div class="card card-outline card-success">
                 <div class="card-header">

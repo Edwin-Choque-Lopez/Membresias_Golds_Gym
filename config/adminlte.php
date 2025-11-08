@@ -349,12 +349,12 @@ return [
                     'submenu'=>[
                         [
                             'text'=>'Lista de Clientes',
-                            'url'=>'#',
+                            'url'=>'/clients',
                             'icon'=>'fas fa-list-ul',
                         ],
                         [
                             'text'=>'Agregar Cliente',
-                            'url'=>'#',
+                            'url'=>'/clients/create',
                             'icon'=>'fas fa-user-plus',
                         ],
                     ],

@@ -1,17 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Personal')
+@section('title', 'Clientes')
 
 @section('content_header')
     <nav aria-label="breadcrumb" style="font-size: 15pt">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{url('/home')}}">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{{url('/staff')}}">Personal</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Lista del Personal</li>
+            <li class="breadcrumb-item"><a href="{{url('/clients')}}">Clientes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Lista de Clientes</li>
         </ol>
     </nav>
     <hr>
 @stop
+
 
 @section('content')
 <section class="content">
@@ -22,44 +23,44 @@
             <div class="card-header">
                 <h1 class="card-title"><b>Clientes Registrados</b></h1>
                 <div class="card-tools">
-                  <a class="btn btn-primary" href="{{url('/staff/create')}}" role="button">Registrar Nuevo Personal</a>
+                  <a class="btn btn-primary" href="{{url('/clients/create')}}" role="button">Registrar Nuevo Cliente</a>
                 </div>
             </div>
           <div class="card-body">
             <div class="table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Rol</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Fecha de registro</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($result as $user)
                         <tr>
-                            <td>{{ $user['person_id'] }}</td>
-                            <td>{{$user['rol']}}</td>
-                            <td>{{ $user['nombre_completo'] }}</td>
-                            <td>{{ $user['email'] }}</td>
-                            <td>{{$user['fecha_registro']}}</td>
-                            <td style="display: flex; justify-content: center; align-items: center; gap: 8px; height: 100%;">
-                                <a href="{{route('staff.show',$user['person_id'])}}" class="btn btn-primary"><i class="far fa-eye"></i></a>
-                                <a href="{{route('staff.edit',$user['person_id'])}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i></a>
-                                <form action="{{ route('staff.destroy', $user['person_id']) }}" method="POST" style="display: inline;" id="form-delete-{{ $user['person_id'] }}">
+                            <th>ID</th>
+                            <th>C.I.</th>
+                            <th>Nombre</th>
+                            <th>Telefono</th>
+                            <th>Fecha de registro</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($clients as $client)
+                            <tr>
+                                <td>{{ $client['id'] }}</td>
+                                <td>{{ $client['ci']}}</td>
+                                <td>{{ $client['name'] }}</td>
+                                <td>{{ $client['phone'] }}</td>
+                                <td>{{ $client['created_at']}}</td>
+                                <td style="display: flex; justify-content: center; align-items: center; gap: 8px; height: 100%;">
+                                <a href="{{route('clients.show',$client['id'])}}" class="btn btn-primary"><i class="far fa-eye"></i></a>
+                                <a href="{{route('clients.edit',$client['id'])}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i></a>
+                                <form action="{{ route('clients.destroy', $client['id']) }}" method="POST" style="display: inline;" id="form-delete-{{ $client['id'] }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-delete" data-id="{{ $user['person_id'] }}">
+                                    <button type="submit" class="btn btn-danger btn-delete" data-id="{{ $client['id'] }}">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </form>
                             </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+                            </tr>
+                        @endforeach
+                    </tbody>
               </table>
             </div>
           </div>
@@ -69,6 +70,9 @@
   </div>
 </section>
 @stop
+
+
+
 
 
 @section('css')
@@ -108,10 +112,10 @@
             "pageLength": 5,
             "language": {
                 "emptyTable": "No hay información",
-                "info": "Mostrando del _START_ a _END_ de _TOTAL_ Usuarios",
-                "infoEmpty": "Mostrando 0 a 0 de 0 Usuarios",
+                "info": "Mostrando del _START_ a _END_ de _TOTAL_ Clientes",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Clietes",
                 "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
-                "lengthMenu": "Mostrar _MENU_ Usuarios",
+                "lengthMenu": "Mostrar _MENU_ Clientes",
                 "loadingRecords": "Cargando...",
                 "processing": "Procesando...",
                 "search": "Buscar:",

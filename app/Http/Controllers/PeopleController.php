@@ -12,7 +12,11 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        //
+        $clients=People::query()
+            ->whereNull('user_id')
+            ->orderBy('name')
+            ->get();
+        return view('users.customer_users.index',compact('clients'));
     }
 
     /**
@@ -20,7 +24,7 @@ class PeopleController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.customer_users.create');
     }
 
     /**
