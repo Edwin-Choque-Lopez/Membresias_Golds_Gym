@@ -20,7 +20,7 @@ class MembershipController extends Controller
      */
     public function create()
     {
-        //
+        return view('memberships.create');
     }
 
     /**
@@ -28,7 +28,14 @@ class MembershipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre'=>'required',
+            'tipo'=>'required',
+            'meses'=>'required',
+            'precio'=>'required',
+            'descripcion'=>'required',
+        ]);
+        return response()->json($request);
     }
 
     /**

@@ -359,7 +359,26 @@ return [
                         ],
                     ],
                 ],
+                
             ],
+        ],
+        [
+            'text'=>'Membresias',
+            'url'=>'#',
+            'icon'=>'far fa-file-alt',
+            'classes'=>'bg-blue text-white',
+            'submenu'=>[
+            [
+                'text'=>'Lista de Membresias',
+                'url'=>'/memberships',
+                'icon'=>'fas fa-list-ol',
+            ],
+            [
+                'text'=>'Crear Membresia',
+                'url'=>'/memberships/create',
+                'icon'=>'fas fa-folder-plus',
+            ],
+        ],
         ],
         /*Ejemplos
         [

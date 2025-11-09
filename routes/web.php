@@ -12,4 +12,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 Route::resource('/staff', App\Http\Controllers\StaffController::class)->names('staff');
 Route::resource('/clients', App\Http\Controllers\PeopleController::class)->names('clients');
+Route::resource('/memberships', App\Http\Controllers\MembershipController::class)->names('memberships');
 
