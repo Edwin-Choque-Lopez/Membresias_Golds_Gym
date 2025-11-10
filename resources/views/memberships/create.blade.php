@@ -42,11 +42,11 @@
                                             <label for="">Tipo de membresia</label>
                                             <div style="display: flex; justify-content: left; align-items: left; gap: 8px; height: 100%;">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="P" name="tipo" checked>
+                                                    <input class="form-check-input" type="radio" value="0" name="tipo" checked>
                                                     <label class="form-check-label" for="radioDefault1"> <i class="fas fa-user"></i> Personal</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" value="G" name="tipo" >
+                                                    <input class="form-check-input" type="radio" value="1" name="tipo" >
                                                     <label class="form-check-label" for="radioDefault2"><i class="fas fa-users"></i> Grupal</label>
                                                 </div>
                                             </div>
@@ -64,7 +64,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Precio</label>
-                                            <input type="number" name="precio" value="{{old('precio')}}" class="form-control">
+                                            <input type="number" name="precio" value="{{old('precio')}}" step="0.01" min="0" class="form-control">
                                             @error('precio')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror

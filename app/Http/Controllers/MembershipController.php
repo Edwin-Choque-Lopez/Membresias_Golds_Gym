@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Membership;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\String_;
 
 class MembershipController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $memberships=Membership::all();
+        return view('memberships.index',compact('memberships'));
     }
 
     /**
@@ -29,13 +29,21 @@ class MembershipController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre'=>'required',
-            'tipo'=>'required',
-            'meses'=>'required',
-            'precio'=>'required',
-            'descripcion'=>'required',
+            'nombre' => 'required|string|min:5|max:100|unique:memberships,name', 
+            'meses' => 'required|integer|min:1', 
+            'precio' => 'required|numeric|min:0.01', 
+            'tipo' => 'required|boolean', 
+            'descripcion' => 'nullable|string|max:500',
         ]);
-        return response()->json($request);
+        Membership::create([
+            'name' => $request->nombre,
+            'duration_months' => $request->meses,
+            'price' => $request->precio,
+            'is_group' => $request->tipo,
+            'description' => $request->descripcion,
+        ]);
+
+        return redirect()->route('memberships.index')->with('mensaje', 'Membresía creada con éxito.')->with('icono','success');
     }
 
     /**
@@ -65,8 +73,10 @@ class MembershipController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Membership $membership)
+    public function destroy(String $id)
     {
-        //
+        $membership = Membership::findOrFail($id);
+        $membership->delete();
+        return redirect()->route('memberships.index')->with('mensaje', 'Membresia eliminad con éxito')->with('icono', 'success' );
     }
 }
