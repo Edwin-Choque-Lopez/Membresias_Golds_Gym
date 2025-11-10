@@ -33,9 +33,10 @@
                                         <div class="form-group">
                                             <label for="">Rol</label>
                                             <select name="rol" class="form-control" id="">
-                                                <option value="{{$result['rol']['rol_id']}}">{{$result['rol']['rol_nombre']}}</option>
                                                 @foreach ($roles as $role)
-                                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                                    <option value="{{ $role->id }}" {{ $role->id == $result['rol']['rol_id'] ? 'selected' : '' }}>
+                                                        {{ $role->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

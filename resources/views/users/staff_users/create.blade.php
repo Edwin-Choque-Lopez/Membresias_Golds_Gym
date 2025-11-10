@@ -41,7 +41,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">C.I.</label>
-                                            <input type="text" name="ci" value="{{old('ci')}}" class="form-control">
+                                            <input type="text" name="ci" value="{{old('ci')}}" maxlength="10" class="form-control">
                                             @error('ci')
                                                 <small style="color: red;">* {{$message}}</small>
                                             @enderror

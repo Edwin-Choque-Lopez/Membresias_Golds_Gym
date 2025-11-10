@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('peoples', function (Blueprint $table) {
             $table->id();
             $table->string('ci', 10)->unique();
-            $table->foreignId('user_id')->unique()->nullable()->constrained('users');
+            $table->foreignId('user_id')->unique()->nullable()->default(null)->constrained('users');
             $table->string('name', 100);
             $table->string('phone',8)->nullable();
-            $table->timestamp('registration_date')->useCurrent();
             $table->char('gender',1)->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\People;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 use PhpParser\Node\Expr\Cast\String_;
 
@@ -37,8 +38,8 @@ class PeopleController extends Controller
     {
         $request->validate([
             'ci'=>'required|unique:peoples,ci|string|min:7|max:10|regex:/^[0-9]+$/',
-            'nombre'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/',
-            'telefono'=>'required|string|regex:/^[0-9 +()-]+$/',
+            'nombre'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/|min:10|max:50',
+            'telefono'=>'required|string|regex:/^[0-9]+$/|digits:8',
             'genero'=>'required',
         ]);
         People::create([
@@ -96,10 +97,11 @@ class PeopleController extends Controller
      */
     public function update(Request $request, String $id)
     {
+        $person = People::findOrFail($id);
         $request->validate([
-            'ci'=>'required|string|min:7|max:10|regex:/^[0-9]+$/',
-            'nombre'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/',
-            'telefono'=>'required|string|regex:/^[0-9 +()-]+$/',
+            'ci' => ['required','string','min:7','max:10','regex:/^[0-9]+$/',Rule::unique('peoples', 'ci')->ignore($person->id),],
+            'nombre'=>'required|string|regex:/^[a-zA-Zñáéíóú ]+$/|min:10|max:50',
+            'telefono'=>'required|string|regex:/^[0-9]+$/|digits:8',
             'genero'=>'required',
         ]);
         $people=People::find($id);
