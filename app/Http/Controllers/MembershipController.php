@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Membership;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use PhpParser\Node\Expr\Cast\String_;
 
 class MembershipController extends Controller
@@ -49,25 +50,50 @@ class MembershipController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Membership $membership)
+    public function show(String $id)
     {
-        //
+        $membership=Membership::findOrFail($id);
+        return view('memberships.show',compact('membership'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Membership $membership)
+    public function edit(String $id)
     {
-        //
+        $membership=Membership::findOrFail($id);
+        return view('memberships.update',compact('membership'));
+        //return response()->json($membership);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Membership $membership)
+    public function update(Request $request, String $id)
     {
-        //
+        $membership=Membership::findOrFail($id);
+        $request->validate([
+            'nombre' => [
+                'required',
+                'string',
+                'min:5',
+                'max:100',
+                Rule::unique('memberships', 'name')->ignore($membership->id),
+            ],
+            'meses' => ['required', 'integer', 'min:1'],
+            'precio' => ['required', 'numeric', 'min:0.01'],
+            'tipo' => ['required', 'boolean'],
+            'descripcion' => ['nullable', 'string', 'max:500'],
+        ]);
+        $membership->update([
+            'name' => $request->nombre,
+            'duration_months' => $request->meses,
+            'price' => $request->precio,
+            'is_group' => $request->tipo,
+            'description' => $request->descripcion,
+        ]);
+        return redirect()->route('memberships.index')->with('mensaje', 'Membresía actualizada con éxito.')->with('icono','success');
+        //return response()->json($request);
     }
 
     /**

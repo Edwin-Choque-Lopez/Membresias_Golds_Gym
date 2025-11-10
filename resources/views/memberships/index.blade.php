@@ -23,7 +23,7 @@
             <div class="card-header">
                 <h1 class="card-title"><b>Membresias Registrados</b></h1>
                 <div class="card-tools">
-                  <a class="btn btn-primary" href="{{url('/memberships/create')}}" role="button">Crear Nueva Membresia</a>
+                  <a class="btn btn-success" href="{{url('/memberships/create')}}" role="button">Crear Nueva Membresia</a>
                 </div>
             </div>
           <div class="card-body">
@@ -112,10 +112,10 @@
             "pageLength": 5,
             "language": {
                 "emptyTable": "No hay información",
-                "info": "Mostrando del _START_ a _END_ de _TOTAL_ Clientes",
-                "infoEmpty": "Mostrando 0 a 0 de 0 Clietes",
-                "infoFiltered": "(Filtrado de _MAX_ total Usuarios)",
-                "lengthMenu": "Mostrar _MENU_ Clientes",
+                "info": "Mostrando del _START_ a _END_ de _TOTAL_ Membresias",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Membresias",
+                "infoFiltered": "(Filtrado de _MAX_ total Membresias)",
+                "lengthMenu": "Mostrar _MENU_ Membresias",
                 "loadingRecords": "Cargando...",
                 "processing": "Procesando...",
                 "search": "Buscar:",

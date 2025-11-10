@@ -22,7 +22,7 @@
             <div class="card-header">
                 <h1 class="card-title"><b>Clientes Registrados</b></h1>
                 <div class="card-tools">
-                  <a class="btn btn-primary" href="{{url('/staff/create')}}" role="button">Registrar Nuevo Personal</a>
+                  <a class="btn btn-success" href="{{url('/staff/create')}}" role="button">Registrar Nuevo Personal</a>
                 </div>
             </div>
           <div class="card-body">

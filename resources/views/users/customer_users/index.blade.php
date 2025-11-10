@@ -23,7 +23,7 @@
             <div class="card-header">
                 <h1 class="card-title"><b>Clientes Registrados</b></h1>
                 <div class="card-tools">
-                  <a class="btn btn-primary" href="{{url('/clients/create')}}" role="button">Registrar Nuevo Cliente</a>
+                  <a class="btn btn-success" href="{{url('/clients/create')}}" role="button">Registrar Nuevo Cliente</a>
                 </div>
             </div>
           <div class="card-body">
