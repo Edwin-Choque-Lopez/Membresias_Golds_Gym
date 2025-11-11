@@ -25,4 +25,4 @@ php artisan storage:link
 En los archivos se encuentra un **backup** de la base de datos (respaldo.sql) la cual debe ser importada en el gesto de base de datos mysql.
 
 ## Credenciales del usario
-user: edwin@gmail.com     password: edwin123
+**user:** edwin@gmail.com    **password:** edwin123
