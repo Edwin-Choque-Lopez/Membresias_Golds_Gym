@@ -380,6 +380,12 @@ return [
             ],
         ],
         ],
+        [
+            'text'=>'Vender Membresias',
+            'url'=>'/clientmemberships/form',
+            'icon'=>'fas fa-address-card',
+            'classes'=>'bg-blue text-white'
+        ],
         /*Ejemplos
         [
             'text' => 'blog',

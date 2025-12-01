@@ -13,4 +13,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/staff', App\Http\Controllers\StaffController::class)->names('staff');
 Route::resource('/clients', App\Http\Controllers\PeopleController::class)->names('clients');
 Route::resource('/memberships', App\Http\Controllers\MembershipController::class)->names('memberships');
+Route::get('/clientmemberships/form',[App\Http\Controllers\ClientMembershipController::class, 'form'])->name('forms');
+Route::post('/clientmemberships/individualmembership',[App\Http\Controllers\ClientMembershipController::class, 'individual'])->name('individual_membership');
+Route::get('/clientmemberships/form/{id}/membership',[App\Http\Controllers\ClientMembershipController::class, 'individual_form'])->name('individual_membership_form');
+Route::post('/clientmemberships/createindividualmembership',[App\Http\Controllers\ClientMembershipController::class, 'create'])->name('create_individual_membership');
+//Route::resource('/clientmemberships',App\Http\Controllers\ClientMembershipController::class)->names('clientmemberships');
 
