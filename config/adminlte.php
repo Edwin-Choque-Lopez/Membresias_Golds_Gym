@@ -386,6 +386,36 @@ return [
             'icon'=>'fas fa-address-card',
             'classes'=>'bg-blue text-white'
         ],
+        [
+            'text'=>'Membresias Vendidas',
+            'url'=>'#',
+            'icon'=>'fas fa-clipboard-list',
+            'classes'=>'bg-blue text-white',
+            'submenu'=>[
+                [
+                    'text'=>'Individuales',
+                    'url'=>'#',
+                    'icon'=>'fas fa-user',
+                    'submenu'=>[
+                        [
+                            'text'=>'Membresias Activas',
+                            'url'=>'/clientmemberships/activemembreships',
+                            'icon'=>'fas fa-list-ul',
+                        ],
+                        [
+                            'text'=>'Membresias Pendientes',
+                            'url'=>'/clientmemberships/pendingmembreships',
+                            'icon'=>'fas fa-list-ul',
+                        ],
+                    ],
+                ],
+                [
+                    'text'=>'Grupales',
+                    'url'=>'/clientmemberships/group',
+                    'icon'=>'fas fa-users',
+                ],
+            ],
+        ]
         /*Ejemplos
         [
             'text' => 'blog',

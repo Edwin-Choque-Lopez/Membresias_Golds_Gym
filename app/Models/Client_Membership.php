@@ -17,18 +17,18 @@ class Client_Membership extends Model
         'client_id',
         'membership_status_id',
         'payment_status_id',
-        'menbership_id',
+        'membership_id',
         'start_date',
         'end_date',
         'total_price',
-        'peding_balance',
+        'pending_balance',
         'advance_payment',
         'group_code',
     ];
 
     public function MembershipStatuse():BelongsTo
     {
-        return $this->belongsTo(Membership_Statuse::class,'memebership_status_id','id');
+        return $this->belongsTo(Membership_Statuse::class,'membership_status_id','id');
     }
     public function PaymentStatuse():BelongsTo
     {
@@ -36,7 +36,7 @@ class Client_Membership extends Model
     }
     public function Membership():BelongsTo
     {
-        return $this->belongsTo(Membership::class, 'menbership_id','id');
+        return $this->belongsTo(Membership::class, 'membership_id','id');
     }
     public function Client():BelongsTo
     {

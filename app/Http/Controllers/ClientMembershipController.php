@@ -15,9 +15,33 @@ class ClientMembershipController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function pending()
     {
-        //
+        $memberships = $pending_memberships = Client_Membership::with([
+            'Membership',         // La información del plan (name, price, duration_months)
+            'Client',             // Los datos de la persona asociada a la membresía (CI, name, phone)
+            'MembershipStatuse',   // El estado de la membresía (name: 'Pendiente')
+            'PaymentStatuse',      // El estado del último pago asociado (Pagado, Vencido, etc.)
+        ])
+        // Filtramos por el ID 3, que representa el estado 'Pendiente'
+        ->where('membership_status_id', 3)
+        ->get();
+        return response()->json($memberships);
+        //return view('memberships_solds.customer_memberships.pendingmemberships');
+    }
+    public function active()
+    {
+        $memberships = $pending_memberships = Client_Membership::with([
+            'Membership',         // La información del plan (name, price, duration_months)
+            'Client',             // Los datos de la persona asociada a la membresía (CI, name, phone)
+            'MembershipStatuse',   // El estado de la membresía (name: 'Pendiente')
+            'PaymentStatuse',      // El estado del último pago asociado (Pagado, Vencido, etc.)
+        ])
+        // Filtramos por el ID 3, que representa el estado 'Pendiente'
+        ->where('membership_status_id', 1)
+        ->get();
+        //return response()->json($memberships);
+        return view('memberships_solds.customer_memberships.active_memberships',compact('memberships'));
     }
 
     /**
@@ -52,9 +76,29 @@ class ClientMembershipController extends Controller
                 },
             ];
         }
-        
+
         $request->validate($rules);
-       
+
+        if ($tipo_pago == 1) {
+            $pending=null;
+            $advance=null;
+        } elseif ($tipo_pago == 0) {
+            $pending=$request->price - $request->pago;
+            $advance=$request->pago;
+        }
+        $clientMembership = Client_Membership::create([
+            'client_id'             => $request->client_id,
+            'membership_status_id'  => $request->estado_membresia,
+            'payment_status_id'     => $request->estado_pago,
+            'membership_id'         => $request->membership_id,
+            'start_date'            => $request->fecha_de_inicio,
+            'end_date'              => $request->fecha_final,
+            'total_price'           => $request->price,
+            'pending_balance'       => $pending,
+            'advance_payment'       => $advance,
+            'group_code'            => null,
+        ]);
+ 
     }
 
     /**

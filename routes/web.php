@@ -17,5 +17,7 @@ Route::get('/clientmemberships/form',[App\Http\Controllers\ClientMembershipContr
 Route::post('/clientmemberships/individualmembership',[App\Http\Controllers\ClientMembershipController::class, 'individual'])->name('individual_membership');
 Route::get('/clientmemberships/form/{id}/membership',[App\Http\Controllers\ClientMembershipController::class, 'individual_form'])->name('individual_membership_form');
 Route::post('/clientmemberships/createindividualmembership',[App\Http\Controllers\ClientMembershipController::class, 'create'])->name('create_individual_membership');
+Route::get('/clientmemberships/activemembreships',[App\Http\Controllers\ClientMembershipController::class, 'active'])->name('active_membership');
+Route::get('/clientmemberships/pendingmembreships',[App\Http\Controllers\ClientMembershipController::class, 'pending'])->name('pending_membership');    
 //Route::resource('/clientmemberships',App\Http\Controllers\ClientMembershipController::class)->names('clientmemberships');
 

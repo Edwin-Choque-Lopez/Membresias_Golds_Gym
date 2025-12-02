@@ -6,7 +6,7 @@
 .phpactor.json
 .phpunit.result.cache
 .zshrc_backup
-.zshrc_backup
+.zshrc_optimized
 /.fleet
 /.idea
 /.nova
